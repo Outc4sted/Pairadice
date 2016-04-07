@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import GameInfoBar from '../components/GameInfoBar';
 import DeathRow from '../components/DeathRow';
+import GameDice from '../components/GameDice';
 import * as GameActions from '../actions/gameActions';
 
 
@@ -23,13 +24,13 @@ class Pairadice extends Component {
   }
 
   render() {
-    const { gameInfoBar, deathboard, markDeathNotch } = this.props;
+    const { gameInfoBar, deathboard } = this.props;
 
     return (
       <div>
         <GameInfoBar gameInfoBar={gameInfoBar} />
-        {deathboard.map((deathRow) => { <DeathRow deathRow={deathRow} /> })}
-        <input type="button" onClick={() => markDeathNotch(1)} />
+        {deathboard.map((deathRow, i) => <DeathRow key={i} deathRow={deathRow} /> )}
+        <GameDice gameDice={gameDice} />
       </div>
     );
   }

@@ -9,13 +9,15 @@ const initialState = [
 export default function deathboard(state = initialState, action) {
   switch (action.type) {
     case MARK_DEATH_NOTCH:
-      const notchExists = state.find(deathNotch => deathNotch.value === action.diceValue);
+      let notchExists = state.find(deathNotch => deathNotch.value === action.diceValue);
 
       return state.map(deathNotch => {
         let newDeathNotch = !notchExists && deathNotch.value === null;
 
-        if (newDeathNotch)
+        if (newDeathNotch) {
           deathNotch.value = action.diceValue;
+          notchExists = true;
+        }
 
         if (deathNotch.value === action.diceValue)
           ++deathNotch.count;
