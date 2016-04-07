@@ -8,7 +8,7 @@ const GameDice = ({ gameDice }) => (
         <div key={i}>
           <span>[Dice {i}]</span>
           <div>
-            <span>val: {dice.val}</span>
+            <span>val: {dice.value}</span>
             <span>group: {dice.group}</span>
           </div>
         </div>
@@ -17,9 +17,12 @@ const GameDice = ({ gameDice }) => (
   </div>
 );
 
-GameInfoBar.propTypes = {
-  gameDice: PropTypes.arrayOf(PropTypes.number)
+GameDice.propTypes = {
+  gameDice: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.number.isRequired,
+    group: PropTypes.number.isRequired
+  })).isRequired
 };
 
 
-export {GameInfoBar as default};
+export {GameDice as default};

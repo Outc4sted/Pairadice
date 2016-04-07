@@ -16,10 +16,20 @@ export function endTurn({groups, deathDice}) {
   };
 }
 
+export const NEXT_TURN = 'NEXT_TURN';
+export function nextTurn() {
+  return {
+    type: NEXT_TURN
+  };
+}
+
 export const CHECK_IF_GAME_ENDED = 'CHECK_IF_GAME_ENDED';
 export function checkIfGameEnded() {
-  return {
-    type: CHECK_IF_GAME_ENDED
+  return (dispatch, getState) => {
+    const {deathboard} = getState().entities;
+    const loseCondition = deathboard.find((deathRow) => deathRow.count === 8)
+
+    loseCondition ? dispatch(endGame()) : dispatch(nextTurn());
   };
 }
 
@@ -30,21 +40,11 @@ export function endGame() {
   };
 }
 
-export const SELECT_DICE = 'SELECT_DICE';
-export function selectDice({group, value}) {
+export const TOGGLE_DICE = 'TOGGLE_DICE';
+export function toggleDice({index}) {
   return {
-    type: SELECT_DICE,
-    group,
-    value
-  };
-}
-
-export const UNSELECT_DICE = 'UNSELECT_DICE';
-export function unselectDice({group, value}) {
-  return {
-    type: UNSELECT_DICE,
-    group,
-    value
+    type: TOGGLE_DICE,
+    index
   };
 }
 

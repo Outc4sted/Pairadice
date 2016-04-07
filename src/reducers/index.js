@@ -4,6 +4,7 @@ import gameInfoBar from './gameInfoBar';
 import highscores from './highscores';
 import deathboard from './deathboard';
 import gameDice from './gameDice';
+import gameboard from './gameboard';
 
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   deathboard,
   gameDice,
   routing,
+  gameboard
 });
 
 

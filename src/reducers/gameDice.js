@@ -1,24 +1,40 @@
-import { SELECT_DICE, UNSELECT_DICE, CLEAR_DICE_GROUPS, NEW_GAME } from '../actions/gameActions';
+import { TOGGLE_DICE, CLEAR_DICE_GROUPS, NEXT_TURN, NEW_GAME } from '../actions/gameActions';
 
-const initialState = [
-  { value: null, group: null },
-  { value: null, group: null },
-  { value: null, group: null },
-  { value: null, group: null },
-  { value: null, group: null }
-];
+const initialState = new Array(5).fill({
+  value: 0,
+  group: 0
+});
 
-export default function deathboard(state = initialState, action) {
+export default function gameDice(state = initialState, action) {
   switch (action.type) {
-    case SELECT_DICE:
-      return state;
+    case TOGGLE_DICE:
+      return state.map((dice, index) => {
+        if (index === action.index)
+          if (dice.group > 0)
+            dice.group = 0
+          else {
+            let groupFilter = state.filter(dice => { dice.group === 1 });
+            if (groupFilter.length < 2)
+              dice.group = 1
 
-    case UNSELECT_DICE:
-      return state;
+            groupFilter = state.filter(dice => { dice.group === 2 });
+            if (groupFilter.length < 2)
+              dice.group = 2
+          }
+
+        return dice;
+      });
 
     case CLEAR_DICE_GROUPS:
       return state.map(dice => {
-        dice.group = null;
+        dice.group = 0;
+        return dice;
+      });
+
+    case NEXT_TURN:
+      return state.map(dice => {
+        dice.group = 0;
+        dice.value = Math.floor(Math.random() * 6 + 1);
         return dice;
       });
 

@@ -4,13 +4,16 @@ import { connect } from 'react-redux';
 import GameInfoBar from '../components/GameInfoBar';
 import DeathRow from '../components/DeathRow';
 import GameDice from '../components/GameDice';
+import Gameboard from '../components/Gameboard';
 import * as GameActions from '../actions/gameActions';
 
 
-function mapStateToProps({gameInfoBar, deathboard}) {
+function mapStateToProps({gameInfoBar, deathboard, gameDice, gameboard}) {
   return {
     gameInfoBar,
-    deathboard
+    deathboard,
+    gameDice,
+    gameboard
   };
 }
 
@@ -24,13 +27,14 @@ class Pairadice extends Component {
   }
 
   render() {
-    const { gameInfoBar, deathboard } = this.props;
+    const { gameInfoBar, deathboard, gameDice, gameboard } = this.props;
 
     return (
       <div>
         <GameInfoBar gameInfoBar={gameInfoBar} />
         {deathboard.map((deathRow, i) => <DeathRow key={i} deathRow={deathRow} /> )}
         <GameDice gameDice={gameDice} />
+        <Gameboard gameboard={gameboard} />
       </div>
     );
   }
