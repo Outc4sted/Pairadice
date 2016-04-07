@@ -29,3 +29,37 @@ export function highscoreListFail(error = 'fffffuuuuuuuu') {
     error
   };
 }
+
+export function saveScore(gameInfo) {
+  return dispatch => {
+    dispatch(saveScoreRequest());
+    // save to db
+    // dispatch(saveScoreSuccess(gameInfo));
+    // dispatch(saveScoreFail());
+
+    dispatch(endGame());
+  }
+}
+
+export const SAVE_SCORE_REQ = 'SAVE_SCORE_REQ';
+export function saveScoreRequest() {
+  return {
+    type: SAVE_SCORE_REQ
+  };
+}
+
+export const SAVE_SCORE_SUCC = 'SAVE_SCORE_SUCC';
+export function saveScoreSuccess(gameInfo) {
+  return {
+    type: SAVE_SCORE_SUCC,
+    gameInfo
+  };
+}
+
+export const SAVE_SCORE_FAIL = 'SAVE_SCORE_FAIL';
+export function saveScoreFail(error = 'fffffuuuuuuuu') {
+  return {
+    type: SAVE_SCORE_FAIL,
+    error
+  };
+}

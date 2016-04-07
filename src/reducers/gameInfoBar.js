@@ -1,4 +1,4 @@
-import { SELECT_DICE, UNSELECT_DICE, CLEAR_DICE } from '../actions/gameActions';
+import { SELECT_DICE, UNSELECT_DICE, CLEAR_DICE, NEW_GAME } from '../actions/gameActions';
 
 const initialState = {
   round: 0,
@@ -26,6 +26,9 @@ export default function gameInfoBar(state = initialState, action) {
       return Object.assign({}, state, {
         groups: [0, 0]
       });
+
+    case NEW_GAME:
+      return initialState;
 
     default:
       return state;

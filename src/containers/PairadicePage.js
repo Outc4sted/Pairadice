@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import GameInfoBar from '../components/GameInfoBar';
+import DeathRow from '../components/DeathRow';
 import * as GameActions from '../actions/gameActions';
 
 
-function mapStateToProps({gameInfoBar: { round, totalPoints, groups }}) {
+function mapStateToProps({gameInfoBar, deathboard}) {
   return {
-    round,
-    totalPoints,
-    groups
+    gameInfoBar,
+    deathboard
   };
 }
 
@@ -23,11 +23,13 @@ class Pairadice extends Component {
   }
 
   render() {
-    const { round, totalPoints, groups } = this.props;
+    const { gameInfoBar, deathboard, markDeathNotch } = this.props;
 
     return (
       <div>
-        <GameInfoBar round={round} totalPoints={totalPoints} groups={groups} />
+        <GameInfoBar gameInfoBar={gameInfoBar} />
+        {deathboard.map((deathRow) => { <DeathRow deathRow={deathRow} /> })}
+        <input type="button" onClick={() => markDeathNotch(1)} />
       </div>
     );
   }

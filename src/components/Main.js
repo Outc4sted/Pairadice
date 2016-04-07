@@ -1,19 +1,17 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import NavBar from './NavBar';
 
 
-export default class Main extends Component {
-  static propTypes = {
-    children: PropTypes.any.isRequired,
-  };
+const Main = ({ children }) => (
+  <div>
+      <NavBar />
+      {children}
+  </div>
+);
 
-  render() {
-    return (
-      <div>
-          <NavBar />
-          {/* this will render the child routes */}
-          {this.props.children}
-      </div>
-    );
-  }
-}
+Main.propTypes = {
+  children: PropTypes.any.isRequired,
+};
+
+
+export {Main as default};
