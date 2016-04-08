@@ -3,9 +3,9 @@ import React, { PropTypes } from 'react';
 
 const Gameboard = ({ gameboard }) => (
   <div>
-    {gameboard.map((row) => {
+    {gameboard.map((row, i) => {
       return (
-        <div key={row.value}>
+        <div key={i}>
           <span>[Game Row {row.value}]</span>
           <div>
             <span>count: {row.count}</span>

@@ -1,8 +1,6 @@
 export const NEW_GAME = 'NEW_GAME';
 export function newGame() {
-  return {
-    type: NEW_GAME
-  };
+  return dispatch => dispatch({type: NEW_GAME});
 }
 
 export const END_TURN = 'END_TURN';

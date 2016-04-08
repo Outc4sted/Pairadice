@@ -1,9 +1,12 @@
 import { TOGGLE_DICE, CLEAR_DICE_GROUPS, NEXT_TURN, NEW_GAME } from '../actions/gameActions';
 
-const initialState = new Array(5).fill({
-  value: 0,
-  group: 0
-});
+const initialState = [
+  {value: 0, group: 0},
+  {value: 0, group: 0},
+  {value: 0, group: 0},
+  {value: 0, group: 0},
+  {value: 0, group: 0}
+];
 
 export default function gameDice(state = initialState, action) {
   switch (action.type) {

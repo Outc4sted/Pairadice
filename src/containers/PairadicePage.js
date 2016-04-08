@@ -8,7 +8,7 @@ import Gameboard from '../components/Gameboard';
 import * as GameActions from '../actions/gameActions';
 
 
-function mapStateToProps({gameInfoBar, deathboard, gameDice, gameboard}) {
+function mapStateToProps({ gameInfoBar, deathboard, gameDice, gameboard }) {
   return {
     gameInfoBar,
     deathboard,
@@ -24,6 +24,7 @@ function mapDispatchToProps(dispatch) {
 class Pairadice extends Component {
   constructor(props) {
     super(props);
+    this.props.newGame();
   }
 
   render() {
