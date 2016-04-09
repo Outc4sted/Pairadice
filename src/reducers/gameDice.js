@@ -16,13 +16,14 @@ export default function gameDice(state = initialState, action) {
           if (dice.group > 0)
             dice.group = 0
           else {
-            let groupFilter = state.filter(dice => { dice.group === 1 });
+            let groupFilter = state.filter(dice => dice.group === 1);
             if (groupFilter.length < 2)
               dice.group = 1
-
-            groupFilter = state.filter(dice => { dice.group === 2 });
-            if (groupFilter.length < 2)
-              dice.group = 2
+            else {
+              groupFilter = state.filter(dice => dice.group === 2);
+              if (groupFilter.length < 2)
+                dice.group = 2
+            }
           }
 
         return dice;
@@ -34,15 +35,13 @@ export default function gameDice(state = initialState, action) {
         return dice;
       });
 
+    case NEW_GAME:
     case NEXT_TURN:
       return state.map(dice => {
         dice.group = 0;
         dice.value = Math.floor(Math.random() * 6 + 1);
         return dice;
       });
-
-    case NEW_GAME:
-      return initialState;
 
     default:
       return state;

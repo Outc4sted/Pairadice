@@ -38,12 +38,25 @@ export function endGame() {
   };
 }
 
-export const TOGGLE_DICE = 'TOGGLE_DICE';
-export function toggleDice({index}) {
+export const UPDATE_DICE_GROUP_TOTALS = 'UPDATE_DICE_GROUP_TOTALS';
+export function updateDiceGroupTotals(gameDice) {
   return {
-    type: TOGGLE_DICE,
-    index
+    type: UPDATE_DICE_GROUP_TOTALS,
+    gameDice
   };
+}
+
+export const TOGGLE_DICE = 'TOGGLE_DICE';
+export function toggleDice(index) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: TOGGLE_DICE,
+      index
+    });
+
+    const {gameDice} = getState();
+    dispatch(updateDiceGroupTotals(gameDice));
+  }
 }
 
 export const CLEAR_DICE_GROUPS = 'CLEAR_DICE_GROUPS';
