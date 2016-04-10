@@ -1,16 +1,20 @@
 import React, { PropTypes } from 'react';
 
 
-const GameDice = ({ gameDice, toggleDice }) => (
+const GameDice = ({ gameDice, toggleDice, gameStarted }) => (
   <div>
+    <h2>Game Dice</h2>
+
     {gameDice.map((dice, index) => {
       return (
-        <div key={index} onClick={() => toggleDice(index)}>
+        <div key={index} onClick={() => gameStarted && toggleDice(index)}>
           <span>[Dice {index}]</span>
           <div>
             <span>val: {dice.value}</span>
+            &nbsp;
             <span>group: {dice.group}</span>
           </div>
+          <br />
         </div>
       );
     })}
@@ -22,7 +26,8 @@ GameDice.propTypes = {
     value: PropTypes.number.isRequired,
     group: PropTypes.number.isRequired
   })).isRequired,
-  toggleDice: PropTypes.func.isRequired
+  toggleDice: PropTypes.func.isRequired,
+  gameStarted: PropTypes.bool.isRequired
 };
 
 

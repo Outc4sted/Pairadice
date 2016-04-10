@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import GameInfoBar from '../components/GameInfoBar';
-import DeathRow from '../components/DeathRow';
+import DeathBoard from '../components/DeathBoard';
 import GameDice from '../components/GameDice';
 import Gameboard from '../components/Gameboard';
 import * as GameActions from '../actions/gameActions';
@@ -13,7 +13,9 @@ function mapStateToProps({ gameInfoBar, deathboard, gameDice, gameboard }) {
     gameInfoBar,
     deathboard,
     gameDice,
-    gameboard
+    gameboard,
+    gameStarted: gameInfoBar.round > 0,
+    groupsSelected: gameDice.filter(dice => dice.group > 0).length === 4
   };
 }
 
@@ -28,20 +30,28 @@ class Pairadice extends Component {
 
   render() {
     const { gameInfoBar, deathboard, gameDice, gameboard } = this.props;
-    const gameStarted = gameInfoBar.round > 0;
+    const { gameStarted, groupsSelected, toggleDice, newGame, nextTurn, finishRound } = this.props;
 
     return (
       <div>
         <GameInfoBar gameInfoBar={gameInfoBar} />
 
-        {deathboard.map((deathRow, i) => <DeathRow key={i} deathRow={deathRow} /> )}
+        <DeathBoard deathboard={deathboard} />
 
-        <GameDice gameDice={gameDice} toggleDice={this.props.toggleDice} />
+        <GameDice gameDice={gameDice} toggleDice={toggleDice} gameStarted={gameStarted} />
 
         <Gameboard gameboard={gameboard} />
 
         <div>
-          <input type="button" value={gameStarted ? "Roll!" : "New Game"} onClick={() => gameStarted ? this.props.nextTurn() : this.props.newGame()} />
+          {!gameStarted &&
+            <input type="button" value="New Game" onClick={() => newGame()} />
+          }
+          {gameStarted && !gameInfoBar.turnStarted &&
+            <input type="button" value="Roll!" onClick={() => nextTurn()} />
+          }
+          {gameStarted && gameInfoBar.turnStarted &&
+            <input type="button" value="End Turn" disabled={!groupsSelected} onClick={() => finishRound()} />
+          }
         </div>
       </div>
     );

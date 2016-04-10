@@ -1,16 +1,28 @@
 export const NEW_GAME = 'NEW_GAME';
 export function newGame() {
-  return dispatch => dispatch({type: NEW_GAME});
+  return {
+    type: NEW_GAME
+  };
+}
+
+export function finishRound() {
+  return (dispatch, getState) => {
+    const {gameInfoBar, gameDice} = getState();
+    const deathDice = gameDice.find(dice => dice.group === 0);
+
+    dispatch(markPointNotch(gameInfoBar.groupTotals[0]));
+    dispatch(markPointNotch(gameInfoBar.groupTotals[1]));
+    dispatch(markDeathNotch(deathDice.value));
+    dispatch(clearDiceGroups());
+    dispatch(checkIfGameEnded());
+    dispatch(endTurn());
+  };
 }
 
 export const END_TURN = 'END_TURN';
-export function endTurn({groups, deathDice}) {
-  return dispatch => {
-    dispatch(markPointNotch(groups[0]));
-    dispatch(markPointNotch(groups[1]));
-    dispatch(markDeathNotch(deathDice));
-    dispatch(clearDiceGroups());
-    dispatch(checkIfGameEnded());
+export function endTurn() {
+  return {
+    type: END_TURN
   };
 }
 
@@ -24,10 +36,11 @@ export function nextTurn() {
 export const CHECK_IF_GAME_ENDED = 'CHECK_IF_GAME_ENDED';
 export function checkIfGameEnded() {
   return (dispatch, getState) => {
-    const {deathboard} = getState().entities;
+    const {deathboard} = getState();
     const loseCondition = deathboard.find((deathRow) => deathRow.count === 8)
 
-    loseCondition ? dispatch(endGame()) : dispatch(nextTurn());
+    if (loseCondition)
+      dispatch(endGame());
   };
 }
 

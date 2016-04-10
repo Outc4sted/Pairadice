@@ -3,6 +3,8 @@ import React, { PropTypes } from 'react';
 
 const GameInfoBar = ({gameInfoBar: { round, totalPoints, groupTotals }}) => (
   <div>
+    <h2>Game Info</h2>
+
     <span>Round: {round}</span>
     <br />
 
@@ -18,11 +20,11 @@ const GameInfoBar = ({gameInfoBar: { round, totalPoints, groupTotals }}) => (
 );
 
 GameInfoBar.propTypes = {
-  deathRow: PropTypes.shape({
+  gameInfoBar: PropTypes.shape({
     round: PropTypes.number.isRequired,
     totalPoints: PropTypes.number.isRequired,
     groupTotals: PropTypes.arrayOf(PropTypes.number).isRequired
-  })
+  }).isRequired
 };
 
 

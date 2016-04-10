@@ -1,9 +1,10 @@
-import { UPDATE_DICE_GROUP_TOTALS, CLEAR_DICE_GROUPS, NEXT_TURN, NEW_GAME } from '../actions/gameActions';
+import { UPDATE_DICE_GROUP_TOTALS, CLEAR_DICE_GROUPS, NEXT_TURN, NEW_GAME, END_TURN } from '../actions/gameActions';
 
 const initialState = {
   round: 0,
   totalPoints: 0,
-  groupTotals: [0, 0]
+  groupTotals: [0, 0],
+  turnStarted: false
 };
 
 export default function gameInfoBar(state = initialState, action) {
@@ -26,11 +27,18 @@ export default function gameInfoBar(state = initialState, action) {
 
     case NEXT_TURN:
       return Object.assign({}, state, {
+        turnStarted: true,
         round: ++state.round
+      });
+
+    case END_TURN:
+      return Object.assign({}, state, {
+        turnStarted: false
       });
 
     case NEW_GAME:
       return Object.assign({}, initialState, {
+        turnStarted: true,
         round: 1
       });
 
