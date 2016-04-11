@@ -6,12 +6,9 @@ export function newGame() {
 }
 
 export function finishRound() {
-  return (dispatch, getState) => {
-    const {gameInfoBar} = getState();
-
-
-    dispatch(markPointNotch(gameInfoBar.groupTotals[0]));
-    dispatch(markPointNotch(gameInfoBar.groupTotals[1]));
+  return dispatch => {
+    dispatch(markPointNotch(0));
+    dispatch(markPointNotch(1));
     dispatch(markDeathNotch());
     dispatch(updateTotalPoints());
     dispatch(clearDiceGroups());
@@ -113,11 +110,16 @@ export function markDeathNotch() {
 }
 
 export const MARK_POINT_NOTCH = 'MARK_POINT_NOTCH';
-export function markPointNotch(groupValue) {
-  return {
-    type: MARK_POINT_NOTCH,
-    groupValue
-  };
+export function markPointNotch(group) {
+  return (dispatch, getState) => {
+    const {gameInfoBar} = getState();
+    const groupValue = gameInfoBar.groupTotals[group];
+
+    dispatch({
+      type: MARK_POINT_NOTCH,
+      groupValue
+    });
+  }
 }
 
 export const CLEAR_DICE_PAIRS = 'CLEAR_DICE_PAIRS';
