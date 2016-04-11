@@ -7,12 +7,13 @@ export function newGame() {
 
 export function finishRound() {
   return (dispatch, getState) => {
-    const {gameInfoBar, gameDice} = getState();
-    const deathDice = gameDice.find(dice => dice.group === 0);
+    const {gameInfoBar} = getState();
+
 
     dispatch(markPointNotch(gameInfoBar.groupTotals[0]));
     dispatch(markPointNotch(gameInfoBar.groupTotals[1]));
-    dispatch(markDeathNotch(deathDice.value));
+    dispatch(markDeathNotch());
+    dispatch(updateTotalPoints());
     dispatch(clearDiceGroups());
     dispatch(checkIfGameEnded());
     dispatch(endTurn());
@@ -59,6 +60,25 @@ export function updateDiceGroupTotals(gameDice) {
   };
 }
 
+export const UPDATE_TOTAL_POINTS = 'UPDATE_TOTAL_POINTS';
+export function updateTotalPoints() {
+  return (dispatch, getState) => {
+    const {gameboard} = getState();
+    const points = gameboard.reduce((total, {count, points}) => {
+      if (count > 0 && count < 5)
+        return total -= 200;
+      else if (count > 5)
+        return total += (count - 5) * points;
+      return total;
+    }, 0);
+
+    dispatch({
+      type: UPDATE_TOTAL_POINTS,
+      points
+    });
+  }
+}
+
 export const TOGGLE_DICE = 'TOGGLE_DICE';
 export function toggleDice(index) {
   return (dispatch, getState) => {
@@ -80,11 +100,16 @@ export function clearDiceGroups() {
 }
 
 export const MARK_DEATH_NOTCH = 'MARK_DEATH_NOTCH';
-export function markDeathNotch(diceValue) {
-  return {
-    type: MARK_DEATH_NOTCH,
-    diceValue
-  };
+export function markDeathNotch() {
+  return (dispatch, getState) => {
+    const {gameDice} = getState();
+    const deathDice = gameDice.find(dice => dice.group === 0);
+
+    dispatch({
+      type: MARK_DEATH_NOTCH,
+      deathDice
+    });
+  }
 }
 
 export const MARK_POINT_NOTCH = 'MARK_POINT_NOTCH';

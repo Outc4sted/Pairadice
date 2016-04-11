@@ -1,4 +1,4 @@
-import { UPDATE_DICE_GROUP_TOTALS, CLEAR_DICE_GROUPS, NEXT_TURN, NEW_GAME, END_TURN } from '../actions/gameActions';
+import { UPDATE_TOTAL_POINTS, UPDATE_DICE_GROUP_TOTALS, CLEAR_DICE_GROUPS, NEXT_TURN, NEW_GAME, END_TURN } from '../actions/gameActions';
 
 const initialState = {
   round: 0,
@@ -18,6 +18,11 @@ export default function gameInfoBar(state = initialState, action) {
 
       return Object.assign({}, state, {
         groupTotals
+      });
+
+    case UPDATE_TOTAL_POINTS:
+      return Object.assign({}, state, {
+        totalPoints: action.points
       });
 
     case CLEAR_DICE_GROUPS:
