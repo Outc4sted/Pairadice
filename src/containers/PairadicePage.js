@@ -44,7 +44,7 @@ class Pairadice extends Component {
 
         <div>
           {!gameStarted &&
-            <input type="button" value="New Game" onClick={() => newGame()} />
+            <input type="button" value="New Game" className="btn btn-info" onClick={() => newGame()} />
           }
           {gameStarted && !gameInfoBar.turnStarted &&
             <input type="button" value="Roll!" onClick={() => nextTurn()} />

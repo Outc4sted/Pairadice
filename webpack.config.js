@@ -19,16 +19,42 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify('development'),
       },
-    }),
+    })
   ],
   resolve: {
-    extensions: ['', '.js'],
+    extensions: ['', '.js', '.jsx'],
   },
   module: {
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['babel'],
-      exclude: /node_modules/,
-    }],
+    loaders: [
+      {
+        test: /\.js[x]?$/,
+        loaders: ['babel'],
+        exclude: /node_modules/
+      },
+      {
+        test: /bootstrap\/js\//,
+        loader: 'imports?jQuery=jquery'
+      },
+      {
+        test: /\.css$/,
+        loaders: ['style', 'css']
+      },
+      {
+        test: /\.less$/,
+        loaders: ['style', 'css', 'less']
+      },
+      {
+        test: /\.woff$/,
+        loader: "url-loader?limit=10000&mimetype=application/font-woff&name=[path][name].[ext]"
+      },
+      {
+        test: /\.woff2$/,
+        loader: "url-loader?limit=10000&mimetype=application/font-woff2&name=[path][name].[ext]"
+      },
+      {
+        test: /\.(eot|ttf|svg|gif|png)$/,
+        loader: "file-loader"
+      }
+    ]
   },
 };
