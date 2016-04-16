@@ -6,7 +6,7 @@ import DeathBoard from '../components/DeathBoard';
 import GameDice from '../components/GameDice';
 import Gameboard from '../components/Gameboard';
 import * as GameActions from '../actions/gameActions';
-
+import RaisedButton from 'material-ui/RaisedButton';
 
 function mapStateToProps({ gameInfoBar, deathboard, gameDice, gameboard }) {
   return {
@@ -44,7 +44,7 @@ class Pairadice extends Component {
 
         <div>
           {!gameStarted &&
-            <input type="button" value="New Game" className="btn btn-info" onClick={() => newGame()} />
+            <RaisedButton label="New Game" onClick={() => newGame()} />
           }
           {gameStarted && !gameInfoBar.turnStarted &&
             <input type="button" value="Roll!" onClick={() => nextTurn()} />

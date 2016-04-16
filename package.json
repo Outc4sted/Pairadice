@@ -2,7 +2,7 @@
   "name": "pairadice",
   "version": "0.0.1",
   "description": "A simple dice strategy game",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "license": "MIT",
   "repository": "Outc4sted/pairadice",
   "scripts": {
@@ -29,6 +29,7 @@
     "node": ">=4"
   },
   "keywords": [
+    "react",
     "redux",
     "pairadice"
   ],
@@ -62,25 +63,15 @@
     "webpack-hot-middleware": "^2.7.1"
   },
   "dependencies": {
-    "bootstrap": "^3.3.6",
-    "bootstrap-webpack": "0.0.5",
-    "css-loader": "^0.23.1",
-    "exports-loader": "^0.6.3",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "file-loader": "^0.8.5",
-    "imports-loader": "^0.6.5",
-    "jquery": "^2.2.3",
-    "less": "^2.6.1",
-    "less-loader": "^2.2.3",
+    "material-ui": "^0.15.0-beta.1",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-redux": "^4.4.2",
     "react-router": "^2.0.1",
     "react-router-redux": "^4.0.2",
+    "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.4.0",
     "redux-logger": "^2.6.1",
-    "redux-thunk": "^1.0.3",
-    "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7"
+    "redux-thunk": "^1.0.3"
   }
 }

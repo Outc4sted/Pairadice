@@ -1,12 +1,17 @@
 import React, { PropTypes } from 'react';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import NavBar from './NavBar';
 
+const muiTheme = getMuiTheme();
 
 const Main = ({ children }) => (
-  <div>
+  <MuiThemeProvider muiTheme={muiTheme}>
+    <div>
       <NavBar />
       {children}
-  </div>
+    </div>
+  </MuiThemeProvider>
 );
 
 Main.propTypes = {
