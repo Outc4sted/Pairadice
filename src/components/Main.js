@@ -1,22 +1,34 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Paper from 'material-ui/Paper';
 import NavBar from './NavBar';
 
 const muiTheme = getMuiTheme();
 
-const Main = ({ children }) => (
-  <MuiThemeProvider muiTheme={muiTheme}>
-    <div>
-      <NavBar />
-      {children}
-    </div>
-  </MuiThemeProvider>
-);
+export default class Main extends Component {
+  static propTypes = {
+    children: PropTypes.any.isRequired,
+  };
 
-Main.propTypes = {
-  children: PropTypes.any.isRequired,
-};
+  render() {
+    const style = {
+      height: 1000,
+      width: 800,
+      margin: 20,
+      textAlign: 'center',
+      display: 'inline-block',
+    };
 
-
-export {Main as default};
+    return (
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <Paper style={style} zDepth={1}>
+          <div>
+            <NavBar />
+            {this.props.children}
+          </div>
+        </Paper>
+      </MuiThemeProvider>
+    );
+  }
+}

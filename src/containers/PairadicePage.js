@@ -5,8 +5,9 @@ import GameInfoBar from '../components/GameInfoBar';
 import DeathBoard from '../components/DeathBoard';
 import GameDice from '../components/GameDice';
 import Gameboard from '../components/Gameboard';
+import GameButtons from '../components/GameButtons';
 import * as GameActions from '../actions/gameActions';
-import RaisedButton from 'material-ui/RaisedButton';
+
 
 function mapStateToProps({ gameInfoBar, deathboard, gameDice, gameboard }) {
   return {
@@ -29,8 +30,10 @@ class Pairadice extends Component {
   }
 
   render() {
-    const { gameInfoBar, deathboard, gameDice, gameboard } = this.props;
-    const { gameStarted, groupsSelected, toggleDice, newGame, nextTurn, finishRound } = this.props;
+    const {
+      gameInfoBar, deathboard, gameDice, gameboard,
+      gameStarted, groupsSelected, toggleDice, newGame, nextTurn, finishRound
+    } = this.props;
 
     return (
       <div>
@@ -42,17 +45,7 @@ class Pairadice extends Component {
 
         <Gameboard gameboard={gameboard} />
 
-        <div>
-          {!gameStarted &&
-            <RaisedButton label="New Game" onClick={() => newGame()} />
-          }
-          {gameStarted && !gameInfoBar.turnStarted &&
-            <input type="button" value="Roll!" onClick={() => nextTurn()} />
-          }
-          {gameStarted && gameInfoBar.turnStarted &&
-            <input type="button" value="End Turn" disabled={!groupsSelected} onClick={() => finishRound()} />
-          }
-        </div>
+        <GameButtons gameStarted={gameStarted} turnStarted={gameInfoBar.turnStarted} groupsSelected={groupsSelected} newGame={newGame} nextTurn={nextTurn} finishRound={finishRound} />
       </div>
     );
   }
