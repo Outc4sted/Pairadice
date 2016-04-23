@@ -1,50 +1,51 @@
 import React, { PropTypes } from 'react';
 import Paper from 'material-ui/Paper';
-import { GridList, GridTile } from 'material-ui/GridList';
+import { Row, Col } from 'react-flexbox-grid/lib';
+
 
 const deathNotchLimit = 8;
 const styles = {
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-  },
-  gridList: {
-    width: 500,
-    height: 120,
-    overflowY: 'auto',
-    marginBottom: 24,
-  },
   deathNotch: {
-    width: 50,
-    height: 50,
-    background: 'red'
+    width: 40,
+    height: 40,
+    background: 'red',
+    border: '1px solid black'
   }
 };
 
 const DeathBoard = ({ deathboard }) => (
-  <div style={styles.root}>
-    <Paper>
-      <h2>Deathboard</h2>
-
+  <Row>
+    <Col xs={12}>
+      <Paper>
         {deathboard.map((deathRow, index) => {
           return (
-            <div key={index}>
-              <span>Value: {deathRow.value || 'x'}</span>
-              <GridList cols={deathNotchLimit} cellHeight={100} padding={1} style={styles.gridList}>
-                {Array.apply(null, Array(deathNotchLimit)).map((val, i) => {
-                  return (
-                    <GridTile key={`${index}${i}`}>
-                      <span style={styles.deathNotch}>x</span>
-                    </GridTile>
-                  );
-                })}
-              </GridList>
-            </div>
+            <Row key={index} middle="xs">
+              <Col xs={2}>
+                {deathRow.value &&
+                  <h4>{`Dice ${deathRow.value}`}</h4>
+                }
+                {!deathRow.value &&
+                  <h4>{`Deathrow #${index+1}`}</h4>
+                }
+              </Col>
+
+              <Col xs={10}>
+                <Row middle="xs">
+                  {Array.apply(null, Array(deathNotchLimit)).map((val, i) => {
+                    return (
+                      <Col key={`${index}${i}`} xs>
+                        <div style={styles.deathNotch}></div>
+                      </Col>
+                    );
+                  })}
+                </Row>
+              </Col>
+            </Row>
           );
         })}
-    </Paper>
-  </div>
+      </Paper>
+    </Col>
+  </Row>
 );
 
 DeathBoard.propTypes = {
