@@ -1,20 +1,23 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
+
 
 const NavBar = () => (
   <nav>
-    <ul>
-      <li>
+    <Toolbar>
+      <ToolbarGroup>
         <Link to="/">
-          Pairadice
+          <ToolbarTitle text="Pairadice" />
         </Link>
-      </li>
-      <li>
+      </ToolbarGroup>
+
+      <ToolbarGroup float="right">
         <Link to="highscores">
-          Highscores
+          <ToolbarTitle text="Highscores" />
         </Link>
-      </li>
-    </ul>
+      </ToolbarGroup>
+    </Toolbar>
   </nav>
 );
 

@@ -22,7 +22,7 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx', '.scss'],
   },
   module: {
     loaders: [
@@ -31,6 +31,11 @@ module.exports = {
         loaders: ['babel'],
         exclude: /node_modules/
       },
+      {
+        test: /\.css$/,
+        loader: 'style!css?modules',
+        include: /flexboxgrid/,
+      }
       // {
       //   test: /\.css$/,
       //   loaders: ['style', 'css']
