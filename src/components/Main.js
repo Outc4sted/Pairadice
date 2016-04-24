@@ -15,7 +15,6 @@ export default class Main extends Component {
 
   render() {
     const style = {
-      height: 1000,
       width: 800
     };
 

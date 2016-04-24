@@ -1,23 +1,49 @@
 import React, { PropTypes } from 'react';
+import Paper from 'material-ui/Paper';
+import { Row, Col } from 'react-flexbox-grid/lib';
 
+
+const gameNotchLimit = 10;
+const styles = {
+  gameNotch: {
+    width: 40,
+    height: 40,
+    background: '#00F',
+    border: '1px solid black'
+  }
+};
 
 const Gameboard = ({ gameboard }) => (
-  <div>
-    <h2>Gameboard</h2>
+  <Row>
+    <Col xs={12}>
+      <Paper>
+        {gameboard.map((gameRow, index) => {
+          return (
+            <Row key={index} middle="xs">
+              <Col xs={1}>
+                <h3>{`[${gameRow.value}]`}</h3>
+              </Col>
 
-    {gameboard.map((row, i) => {
-      return (
-        <div key={i}>
-          <span>[Game Row {row.value}]</span>
-          <div>
-            <span>count: {row.count}</span>
-            &nbsp;
-            <span>points: {row.points}</span>
-          </div>
-        </div>
-      );
-    })}
-  </div>
+              <Col xs={10}>
+                <Row middle="xs">
+                  {Array.apply(null, Array(gameNotchLimit)).map((val, i) => {
+                    return (
+                      <Col key={`${index}${i}`} xs>
+                        <div style={styles.gameNotch}></div>
+                      </Col>
+                    );
+                  })}
+                </Row>
+              </Col>
+              <Col xs={1}>
+                <h5>{gameRow.points * gameRow.count} pts</h5>
+              </Col>
+            </Row>
+          );
+        })}
+      </Paper>
+    </Col>
+  </Row>
 );
 
 Gameboard.propTypes = {

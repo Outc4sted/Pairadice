@@ -1,10 +1,13 @@
 import React from 'react';
+import { Row, Col } from 'react-flexbox-grid/lib';
 
 
 const NotFoundPage = () => (
-  <div>
-    <h1>404 - Page Not Found</h1>
-  </div>
+  <Row>
+    <Col xs>
+        <h1>404 - Page Not Found</h1>
+    </Col>
+  </Row>
 );
 
 

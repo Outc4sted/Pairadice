@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as HighscoreActions from '../actions/highscoreActions';
+import { Row, Col } from 'react-flexbox-grid/lib';
+
 
 function mapStateToProps({highscores: { isFetching, highscores }}) {
   return {
@@ -23,26 +25,28 @@ class HighScoresPage extends Component {
     const { isFetching, highscores } = this.props;
 
     return (
-      <div>
-        <h2>Highscores</h2>
-        <p>Here's how you and everyone else fared</p>
+      <Row>
+        <Col xs>
+          <h2>Highscores</h2>
+          <p>Here's how you and everyone else fared</p>
 
-        <div>
-          {isFetching && highscores === null &&
-            <h2>Loading...</h2>
-          }
-          {!isFetching && highscores === null &&
-            <h2>Empty.</h2>
-          }
-          {highscores !== null &&
-            <div style={{ opacity: isFetching ? 0.5 : 1 }}>
-              {highscores.map(function(highscore) {
-                return <div>Name: {highscore.name} | Score: {highscore.score}</div>;
-              })}
-            </div>
-          }
-        </div>
-      </div>
+          <div>
+            {isFetching && highscores === null &&
+              <h2>Loading...</h2>
+            }
+            {!isFetching && highscores === null &&
+              <h2>Empty.</h2>
+            }
+            {highscores !== null &&
+              <div style={{ opacity: isFetching ? 0.5 : 1 }}>
+                {highscores.map(function(highscore) {
+                  return <div>Name: {highscore.name} | Score: {highscore.score}</div>;
+                })}
+              </div>
+            }
+          </div>
+        </Col>
+      </Row>
     );
   }
 }

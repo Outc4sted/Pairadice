@@ -7,6 +7,7 @@ import GameDice from '../components/GameDice';
 import Gameboard from '../components/Gameboard';
 import GameButtons from '../components/GameButtons';
 import * as GameActions from '../actions/gameActions';
+import { Row, Col } from 'react-flexbox-grid/lib';
 
 
 function mapStateToProps({ gameInfoBar, deathboard, gameDice, gameboard }) {
@@ -36,17 +37,19 @@ class Pairadice extends Component {
     } = this.props;
 
     return (
-      <div>
-        <GameInfoBar gameInfoBar={gameInfoBar} />
+      <Row>
+        <Col xs>
+          <GameInfoBar gameInfoBar={gameInfoBar} />
 
-        <DeathBoard deathboard={deathboard} />
+          <DeathBoard deathboard={deathboard} />
 
-        <GameDice gameDice={gameDice} toggleDice={toggleDice} gameStarted={gameStarted} />
+          <GameDice gameDice={gameDice} toggleDice={toggleDice} gameStarted={gameStarted} />
 
-        <Gameboard gameboard={gameboard} />
+          <Gameboard gameboard={gameboard} />
 
-        <GameButtons gameStarted={gameStarted} turnStarted={gameInfoBar.turnStarted} groupsSelected={groupsSelected} newGame={newGame} nextTurn={nextTurn} finishRound={finishRound} />
-      </div>
+          <GameButtons gameStarted={gameStarted} turnStarted={gameInfoBar.turnStarted} groupsSelected={groupsSelected} newGame={newGame} nextTurn={nextTurn} finishRound={finishRound} />
+        </Col>
+      </Row>
     );
   }
 }
