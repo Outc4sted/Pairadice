@@ -25,13 +25,18 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: ['', '.js'],
+    extensions: ['', '.js', '.jsx', '.scss'],
   },
   module: {
     loaders: [{
       test: /\.js$/,
       loaders: ['babel'],
       exclude: /node_modules/,
+    },
+    {
+        test: /\.css$/,
+        loader: 'style!css?modules',
+        include: /flexboxgrid/,
     }],
   },
 };
